@@ -47,6 +47,7 @@ export const gameData = {
       title: "Simon Dice",
       description: "Memoriza y reproduce la secuencia de luces antes de que el tiempo se agote.",
       color: "red",
+      image: "/images/simon dice.jpg",
     },
     {
       id: "cables",
@@ -54,6 +55,7 @@ export const gameData = {
       title: "Cables y Sockets",
       description: "Conecta cada cable a su socket correcto. Un error y... boom.",
       color: "amber",
+      image: "/images/cables y sockets.jpg",
     },
     {
       id: "maze",
@@ -61,6 +63,7 @@ export const gameData = {
       title: "Laberinto del Cubo",
       description: "Inclina y mueve el cubo para guiar la bola al centro.",
       color: "red",
+      image: "/images/laberinto.jpg",
     },
     {
       id: "batteries",
@@ -68,6 +71,7 @@ export const gameData = {
       title: "Sección de Baterías",
       description: "Localiza y coloca las baterías cerca de las paredes indicadas.",
       color: "amber",
+      image: "/images/batería.jpg",
     },
     {
       id: "button",
@@ -75,6 +79,7 @@ export const gameData = {
       title: "Gran Botón Rojo",
       description: "El botón final. Presiónalo en el momento exacto.",
       color: "red",
+      image: "/images/boton rojo.jpg",
     },
     {
       id: "blindness",
@@ -82,6 +87,7 @@ export const gameData = {
       title: "Evento de Ceguera",
       description: "Tu pantalla se ciega, el cubo cambia de color. Presiona el botón de ese color en la pared.",
       color: "amber",
+      image: "/images/ceguera.jpg",
     },
   ],
 
@@ -168,11 +174,6 @@ export const gameData = {
       id: "test-4",
       thumbnail: "/images/testing/test-4-thumb.jpg",
       videoSrc: "/images/video usuario4.mp4",
-    },
-    {
-      id: "test-5",
-      thumbnail: "/images/testing/test-5-thumb.jpg",
-      videoSrc: "/images/video usuario5.mp4",
     },
   ],
 }

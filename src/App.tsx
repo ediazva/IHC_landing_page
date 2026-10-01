@@ -12,7 +12,6 @@ function App() {
       <main className="flex-1">
         <Hero />
         <Features />
-        <Gallery />
         <GameDesign />
         <UserTesting />
       </main>
