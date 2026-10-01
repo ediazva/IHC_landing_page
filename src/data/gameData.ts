@@ -146,6 +146,11 @@ export const gameData = {
       thumbnail: "/images/testing/test-4-thumb.jpg",
       videoSrc: "/images/video usuario4.mp4",
     },
+    {
+      id: "test-5",
+      thumbnail: "/images/testing/test-5-thumb.jpg",
+      videoSrc: "/images/video usuario5.mp4",
+    },
   ],
 }
 
