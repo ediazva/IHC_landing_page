@@ -136,6 +136,16 @@ export const gameData = {
       thumbnail: "/images/testing/test-2-thumb.jpg",
       videoSrc: "/images/video usuario1.mp4",
     },
+    {
+      id: "test-3",
+      thumbnail: "/images/testing/test-3-thumb.jpg",
+      videoSrc: "/images/video usuario3.mp4",
+    },
+    {
+      id: "test-4",
+      thumbnail: "/images/testing/test-4-thumb.jpg",
+      videoSrc: "/images/video usuario4.mp4",
+    },
   ],
 }
 
