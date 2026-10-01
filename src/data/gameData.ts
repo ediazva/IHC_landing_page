@@ -1,7 +1,7 @@
 export const gameData = {
   title: "Tick, Tock, Boom!",
-  tagline: "El tiempo corre. La bomba espera. ¿Podrás desactivarla?",
-  description: "Estás aislado en una habitación oscura y la bomba flota libremente frente a ti. Para neutralizarla, debes usar tus propias manos y herramientas físicas (destornillador, alicate) para resolver los minijuegos mecánicos y electrónicos distribuidos en cada una de sus caras. La historia se reduce a una carrera contra el reloj donde cada movimiento en Realidad Virtual decide si logras desactivarla a tiempo o detonar en el intento.",
+  tagline: "Una caja de regalo... una bomba... el tiempo corre. ¿Desactivarás a tiempo?",
+  description: "Estás en una habitación —todo el mundo es una habitación, como un skyblock—. En el centro, una caja de regalo. La tocas y... ¡sorpresa! Es una bomba. El temporizador empieza a correr. La bomba tiene 5 caras, cada una con un puzzle único: 1) Simon Dice, 2) Unir cables a sockets, 3) Un laberinto que resuelves moviendo el cubo, 4) Una sección de baterías cerca de las paredes, 5) Un gran botón rojo. Cuidado: cuando estés concentrado resolviendo, tu pantalla se cegará y el cubo se pondrá de un color —debes presionar el botón de ese color en las paredes. Cada segundo cuenta.",
   genre: "VR Puzzle / Simulación de desactivación de bombas",
   platform: "Meta Quest / SteamVR / PICO",
   releaseDate: "Próximamente 2025",
@@ -27,6 +27,8 @@ export const gameData = {
       "/images/design/diseño4.jpeg",
       "/images/design/diseño5.jpeg",
     ],
+    brainstorm: "/images/brainstorm.jpg",
+    maqueta: "/images/maqueta.jpeg",
   },
 
   // Placeholders generados (se usan si no existen las imágenes reales)
@@ -40,25 +42,46 @@ export const gameData = {
 
   features: [
     {
-      id: "faces",
-      icon: "cube",
-      title: "4 Caras · 4 Puzzles Únicos",
-      description: "Cada cara de la bomba es un desafío distinto: cables, símbolos, memoria y circuitos.",
+      id: "simon",
+      icon: "cpu",
+      title: "Simon Dice",
+      description: "Memoriza y reproduce la secuencia de luces antes de que el tiempo se agote.",
       color: "red",
     },
     {
-      id: "timer",
-      icon: "clock",
-      title: "Timer Realista con Presión",
-      description: "Un cronómetro físico en la bomba que cuentas hacia cero. Sin HUDs invasivos: la tensión está en tus manos.",
+      id: "cables",
+      icon: "zap",
+      title: "Cables y Sockets",
+      description: "Conecta cada cable a su socket correcto. Un error y... boom.",
       color: "amber",
     },
     {
-      id: "vr",
-      icon: "headset",
-      title: "Interacción VR Inmersiva",
-      description: "Agarra, gira, corta, teclea y presiona con tus propias manos. Tracking de manos y controles hápticos para máxima inmersión.",
+      id: "maze",
+      icon: "move",
+      title: "Laberinto del Cubo",
+      description: "Inclina y mueve el cubo para guiar la bola al centro.",
       color: "red",
+    },
+    {
+      id: "batteries",
+      icon: "battery",
+      title: "Sección de Baterías",
+      description: "Localiza y coloca las baterías cerca de las paredes indicadas.",
+      color: "amber",
+    },
+    {
+      id: "button",
+      icon: "mouse-pointer-2",
+      title: "Gran Botón Rojo",
+      description: "El botón final. Presiónalo en el momento exacto.",
+      color: "red",
+    },
+    {
+      id: "blindness",
+      icon: "eye-off",
+      title: "Evento de Ceguera",
+      description: "Tu pantalla se ciega, el cubo cambia de color. Presiona el botón de ese color en la pared.",
+      color: "amber",
     },
   ],
 

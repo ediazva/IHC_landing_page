@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Box, Clock, Headset, Users, Zap, Shield, Cpu } from 'lucide-react'
+import { Box, Clock, Headset, Users, Zap, Shield, Cpu, Move, Battery, MousePointer2, EyeOff } from 'lucide-react'
 import { gameData } from '../data/gameData'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
@@ -8,6 +8,12 @@ const iconMap = {
   clock: Clock,
   headset: Headset,
   users: Users,
+  cpu: Cpu,
+  zap: Zap,
+  move: Move,
+  battery: Battery,
+  'mouse-pointer-2': MousePointer2,
+  'eye-off': EyeOff,
 }
 
 const colorStyles = {
