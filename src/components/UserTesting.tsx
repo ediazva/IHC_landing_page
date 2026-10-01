@@ -5,6 +5,15 @@ import { gameData } from '../data/gameData'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 const BASE_URL = import.meta.env.BASE_URL || '/'
+const getAssetUrl = (path: string) => `${BASE_URL}${path.replace(/^\//, '')}`
+
+interface VideoItem {
+  id: string
+  title: string
+  videoSrc: string
+  poster: string
+  isDemo: boolean
+}
 
 export function UserTesting() {
   const [sectionRef, isVisible] = useScrollAnimation(0.1)
@@ -12,6 +21,23 @@ export function UserTesting() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const tests = gameData.userTesting
+  const demoVideo: VideoItem = {
+    id: 'demo',
+    title: 'Demostración',
+    videoSrc: gameData.images.demoVideo,
+    poster: gameData.images.demoPoster,
+    isDemo: true,
+  }
+  const allVideos: VideoItem[] = [
+    demoVideo,
+    ...tests.map((t) => ({
+      id: t.id,
+      title: `Test ${t.id.split('-')[1]}`,
+      videoSrc: t.videoSrc,
+      poster: t.thumbnail,
+      isDemo: false,
+    })),
+  ]
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index)
@@ -24,8 +50,8 @@ export function UserTesting() {
     document.body.style.overflow = ''
   }
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % tests.length)
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + tests.length) % tests.length)
+  const next = () => setCurrentIndex((prev) => (prev + 1) % allVideos.length)
+  const prev = () => setCurrentIndex((prev) => (prev - 1 + allVideos.length) % allVideos.length)
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (!lightboxOpen) return
@@ -34,7 +60,7 @@ export function UserTesting() {
     if (e.key === 'ArrowLeft') prev()
   }
 
-  const getAssetUrl = (path: string) => `${BASE_URL}${path.replace(/^\//, '')}`
+  const currentVideo = allVideos[currentIndex]
 
   return (
     <section
@@ -60,43 +86,84 @@ export function UserTesting() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {tests.map((test, index) => (
-            <motion.article
-              key={test.id}
-              className="card relative overflow-hidden group p-0"
-              whileHover={{ y: -4 }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              onClick={() => openLightbox(index)}
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <video
-                  src={getAssetUrl(test.videoSrc)}
-                  poster={getAssetUrl(test.thumbnail)}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  muted
-                  preload="metadata"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-bomb-bg/90 via-bomb-bg/30 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.button
-                    className="w-20 h-20 rounded-full bg-accent-red/90 flex items-center justify-center text-white scale-95 group-hover:scale-100 transition-transform duration-300 shadow-2xl shadow-accent-red/50"
-                    whileTap={{ scale: 0.9 }}
-                    aria-label={`Ver video ${index + 1}`}
-                  >
-                    <Play className="w-8 h-8 ml-1" />
-                  </motion.button>
+        <div className="space-y-16">
+          {/* Large Demo Video - Full Width */}
+          <motion.div
+            className="relative aspect-video overflow-hidden rounded-xl cursor-pointer group"
+            whileHover={{ scale: 1.01 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+            onClick={() => openLightbox(0)}
+          >
+            <video
+              src={getAssetUrl(demoVideo.videoSrc)}
+              poster={getAssetUrl(demoVideo.poster)}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              muted
+              preload="metadata"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-bomb-bg/90 via-bomb-bg/30 to-transparent group-hover:opacity-0 transition-opacity duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.button
+                className="w-24 h-24 rounded-full bg-accent-red/90 flex items-center justify-center text-white scale-95 group-hover:scale-100 transition-transform duration-300 shadow-2xl shadow-accent-red/50"
+                whileTap={{ scale: 0.9 }}
+                aria-label="Ver demostración"
+              >
+                <Play className="w-10 h-10 ml-1" />
+              </motion.button>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-accent-red/90 text-white px-4 py-1.5 rounded-full text-sm font-mono tracking-wider">
+                DEMOSTRACIÓN
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Existing 4-test grid */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            {tests.map((test, index) => (
+              <motion.article
+                key={test.id}
+                className="card relative overflow-hidden group p-0"
+                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ delay: index * 0.15, duration: 0.5 }}
+                onClick={() => openLightbox(index + 1)}
+              >
+                <div className="relative aspect-video overflow-hidden">
+                  <video
+                    src={getAssetUrl(test.videoSrc)}
+                    poster={getAssetUrl(test.thumbnail)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    muted
+                    preload="metadata"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bomb-bg/90 via-bomb-bg/30 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.button
+                      className="w-20 h-20 rounded-full bg-accent-red/90 flex items-center justify-center text-white scale-95 group-hover:scale-100 transition-transform duration-300 shadow-2xl shadow-accent-red/50"
+                      whileTap={{ scale: 0.9 }}
+                      aria-label={`Ver video ${index + 1}`}
+                    >
+                      <Play className="w-8 h-8 ml-1" />
+                    </motion.button>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-accent-red/90 text-white px-3 py-1 rounded-full text-xs font-mono">
+                      Test {index + 1}
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute top-4 right-4">
-                  <span className="bg-accent-red/90 text-white px-3 py-1 rounded-full text-xs font-mono">
-                    Test {index + 1}
-                  </span>
-                </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            ))}
+          </motion.div>
         </div>
 
         {lightboxOpen && (
@@ -135,7 +202,7 @@ export function UserTesting() {
             </button>
 
             <motion.div
-              className="relative max-w-4xl max-h-[80vh] w-full mx-4"
+              className="relative max-w-5xl max-h-[85vh] w-full mx-4"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -143,19 +210,23 @@ export function UserTesting() {
             >
               <div className="aspect-video rounded-lg overflow-hidden shadow-2xl">
                 <video
-                  src={getAssetUrl(tests[currentIndex].videoSrc)}
+                  src={getAssetUrl(currentVideo.videoSrc)}
                   className="w-full h-full object-contain"
                   controls
                   autoPlay
                   playsInline
-                  muted
+                  muted={!currentVideo.isDemo}
                 />
+              </div>
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/70 text-sm mt-2">
+                <span className="font-mono text-accent-red">{currentVideo.title.toUpperCase()}</span>
+                <span>{currentIndex + 1} / {allVideos.length}</span>
               </div>
             </motion.div>
 
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 md:hidden">
               <button onClick={(e) => { e.stopPropagation(); prev() }} className="p-2 rounded-full bg-white/10 text-white/70" aria-label="Anterior"><ChevronLeft className="w-5 h-5" /></button>
-              <span className="px-4 text-white/70">{currentIndex + 1} / {tests.length}</span>
+              <span className="px-4 text-white/70">{currentIndex + 1} / {allVideos.length}</span>
               <button onClick={(e) => { e.stopPropagation(); next() }} className="p-2 rounded-full bg-white/10 text-white/70" aria-label="Siguiente"><ChevronRight className="w-5 h-5" /></button>
             </div>
           </motion.div>

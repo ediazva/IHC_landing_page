@@ -29,6 +29,8 @@ export const gameData = {
     ],
     brainstorm: "/images/brainstorm.jpg",
     maqueta: "/images/maqueta.jpeg",
+    demoVideo: "/images/video demostracion.mp4",
+    demoPoster: "/images/demo-poster.jpg",
   },
 
   // Placeholders generados (se usan si no existen las imágenes reales)
